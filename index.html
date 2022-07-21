@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Food_Dist_React</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mystyle.css">
+
+</head>
+
+ 
+<body>
+
+<!-- Целевой контейнер -->
+
+<header id = "container"></header>
+
+
+
+<!-- Библиотеки React и ReactDOM -->
+
+<script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+
+<script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.29/browser.js"></script>
+
+<script type="text/babel">
+
+class Header extends React.Component {
+
+	constructor(props){
+		super(props);
+	}
+
+render(){
+
+const {onModal} = this.props;
+
+	return(
+		<header className="header">
+			<div className="header__left-block">
+				<div className="header__logo">
+					<img src="logo.svg" alt="Логотип"/>
+				</div>
+				<nav className="header__links">
+					<a href="#" className="header__link">Доставка питания</a>
+					<a href="#" className="header__link">Второй пункт</a>
+				</nav>
+			</div>
+			<div className="header__right-block">
+				<button onClick={onModal} data-modal className="btn btn_white">Связаться с нами</button>
+			</div>
+		</header>
+	)
+}
+	
+
+}
+
+const SidePanel = () => {
+
+	return(
+		<div className="sidepanel">
+			<div className="sidepanel__text"><span>Социальные сети</span></div>
+			<div className="sidepanel__divider"></div>
+			<a href="https://yandex.ru/" className="sidepanel__icon">
+				<img src="instagram.svg" alt="instagram"/>
+			</a>
+			<a href="https://www.google.ru/?hl=ru" className="sidepanel__icon">
+				<img src="facebook.svg" alt="facebook"/>
+			</a>
+		</div>
+	
+	);
+
+}
+
+class Preview extends React.Component {
+	constructor(props){
+		super(props)
+		
+		
+	}
+
+	render(){
+	
+	const{data, dataItem, onLabel, classUser} = this.props	
+	
+		return (
+			<div className="preview">
+				
+					<div className="bgc_blue"></div>
+						<div className="container" >
+						
+							<InnerContentMenu onLabel={onLabel} data={data} dataItem={dataItem} classUser={classUser}/>
+							
+						<div className="preview__life">Живи полной жизнью!</div>
+					</div>
+			</div>
+	);
+  }
+}
+
+
+
+
+
+
+class InnerContentMenu extends React.Component{
+		constructor(props){
+			super(props)
+			
+		
+		}
+
+render(){
+
+const {data, dataItem, onLabel, classUser} = this.props
+
+const {src, alt, content, id} = data;
+
+			return(
+				<div key={id} className="tabcontainer">
+						<div  className="tabcontent fade"  >
+							<img src={src} alt={alt}/>
+							<div  className="tabcontent__descr">
+										{content}
+							</div>
+						</div>
+						
+						<InnerCursorContent onLabel={onLabel} dataItem={dataItem} classUser={classUser}/>
+				</div>
+			)							
+	
+	}
+
+}
+
+
+
+
+class InnerCursorContent extends React.Component{
+	constructor(props){
+		super(props)
+		
+		this.state = {
+		
+			label: 0,			
+			
+		}
+		
+		this.onDivPush = this.onDivPush.bind(this);
+		
+	}
+	
+	onDivPush(e){
+			
+		
+						 
+	}
+
+render(){
+	
+	const {dataItem, onLabel, classUser} = this.props;
+	
+	const {fit, prem, post, bal} = dataItem
+	
+	return(
+		<div className="tabheader">
+				<h3>Выберите стиль питания</h3>
+				<div className="tabheader__items">
+					<div id="0" onClick={(e) => onLabel(e,0)} className={classUser[0]}>{fit}</div>
+					<div id="1" onClick={(e) => onLabel(e,1)} className={classUser[1]}>{prem}</div>
+					<div id="2" onClick={(e) => onLabel(e,2)} className={classUser[2]}>{post}</div>
+					<div id="3" onClick={(e) => onLabel(e,3)} className={classUser[3]}>{bal}</div>
+				</div>
+		</div>
+	)
+}
+	
+}
+	
+
+
+
+const Divider = () => {
+	return (
+		<div className="divider"></div>
+	);
+
+}
+
+
+
+
+
+
+
+
+
+const Offer = (props) => {
+
+const onModal = props.onModal;
+
+const numberSlides = props.numberSlides;
+
+const slides = props.slides;
+
+const onLiftingState = props.onLiftingState;
+
+
+
+	return(
+			<div className="offer">
+			<div className="bgc_y"></div>
+			<div className="container">
+				<div className="offer__text">
+					<h2 className="title">Что мы можем вам предложить?</h2>
+					<div className="offer__descr">
+						Наша основная идея - это правильное питание. Оно может быть простым и вкусным. Мы не просто доставка, мы сервис! Мы взяли на себя все расчеты БЖУ, калорийности, объемов порций и прочие важные, но скучные аспекты. Вам остается только полезная, сытная и правильная еда, которую мы привозим прямо под дверь.
+					</div>
+				</div>
+				<div className="offer__action">
+					<button onClick={onModal} data-modal className="btn btn_dark">Связаться с нами</button>
+				</div>
+			</div>
+			<div className="container">
+				<div className="offer__advantages">
+					<h2>Быстро и полезно</h2>
+					<div className="offer__advantages-text">
+						Готовка дома занимает много сил, времени и нервов. Мы привозим еду сразу на целый день, и ты можешь действовать так, как тебе удобно, не подстраиваясь ни под кого и будучи уверенным в качестве продукта!
+					</div>
+					<h2>Правильный рацион</h2>
+					<div className="offer__advantages-text">
+						Мы разработали специальное меню, где учтены все нюансы правильного питания, от баланса БЖУ до их приготовления и дробления рациона.
+					</div>
+				</div>
+				
+						<OfferSliderCounter numberSlides={numberSlides} slides={slides} onLiftingState={onLiftingState}/>
+			
+			</div>
+		</div>
+	);
+
+}
+
+
+class OfferSliderCounter extends React.Component{
+		constructor(props){
+			super(props);
+			
+			this.state = {
+				counter: 1,
+			}
+			this.onCounterInc = this.onCounterInc.bind(this);
+			this.onCounterDec = this.onCounterDec.bind(this);
+		}
+		
+		onCounterInc(total){
+			if(this.state.counter >= total){
+				this.setState({
+					counter: 1
+				})
+			}else {
+				this.setState(state => ({
+					counter: state.counter + 1
+				}))
+			}
+					if(this.state.counter < total){
+						this.props.onLiftingState(this.state.counter + 1)
+					}else {
+						this.props.onLiftingState(1)
+					}					
+		}
+		
+		onCounterDec(total){
+			if(this.state.counter <= 1){
+				this.setState({
+					counter: total
+				})
+			}else{
+				this.setState(state => ({
+					counter: state.counter - 1
+				}))
+			}
+				if(this.state.counter > 1){
+					this.props.onLiftingState(this.state.counter - 1)
+				}else {
+					this.props.onLiftingState(total)
+				}
+				
+				
+				
+		}
+		
+render(){
+	let{counter} = this.state;
+	const {slides} = this.props;
+	let {numberSlides} = this.props;
+	if(numberSlides < 10){
+		numberSlides = "0" + numberSlides
+	}
+	if(counter < 10){
+		counter = "0" + counter
+	}
+	
+	
+
+	return(
+	
+	<div className="offer__slider">
+		<div className="offer__slider-counter">
+			<div onClick={() => this.onCounterDec(+numberSlides)} className="offer__slider-prev">
+					<img src="left.svg" alt="prev"/>
+			</div>
+			<span  id="current">{counter}</span>
+						
+			<span id="total">/{numberSlides}</span>
+			<div onClick={() => this.onCounterInc(+numberSlides)} className="offer__slider-next">
+					<img src="right.svg" alt="next"/>
+			</div>
+		</div>
+				<Image slides={slides}/>
+		</div>
+	)
+  }
+}
+
+
+const Image =  (props) => {
+
+const slides = props.slides;
+
+const style = {backgroundColor: 'LemonChiffon'}
+
+return(
+	<div key={slides.id} style={style} className="offer__slider-wrapper fade">
+		<div className="offer__slide">
+				<img src={slides.src} alt={slides.alt}/>
+		</div>
+								
+	</div>
+	)
+}
+
+class Calculating extends React.Component{
+	constructor(props){
+		super(props);
+		
+		this.state = {
+			height: '',
+			weight: '',
+			age: '',
+			active: true,
+			nonActive: false, 
+			coeff: 1,
+			coeffAcrtive: 1,
+			heightBool: true,
+			weightBool: true,
+			ageBool: true,
+		}
+		this.onSet = this.onSet.bind(this);
+		this.onSetClass = this.onSetClass.bind(this);
+	}
+	
+	onSet(e){
+
+		if(e.target.value != "" && e.target.value >= 0){
+			this.setState({
+				[e.target.name]: e.target.value
+			})
+				if(e.target.id === 'height'){
+						this.setState({
+							heightBool: false
+						})
+					}
+				if(e.target.id === 'weight'){
+						this.setState({
+							weightBool: false
+						})
+					}
+				if(e.target.id === 'age'){
+						this.setState({
+							ageBool: false
+						})
+					}
+		  }else{
+			this.setState({
+				[e.target.name]: ''
+			})
+				if(e.target.id === 'height'){
+						this.setState({
+							heightBool: true
+						})
+					}
+				if(e.target.id === 'weight'){
+						this.setState({
+							weightBool: true
+						})
+					}
+				if(e.target.id === 'age'){
+						this.setState({
+							ageBool: true
+						})
+					}
+					
+		  }
+		  
+		  
+	}
+	
+	onSetClass(e){
+	
+	if(e.target.className === "calculating__choose-item"){
+	
+	if(e.target.id === "men" || e.target.id === "women"){
+			this.setState({
+				active: !this.state.active,
+				nonActive: !this.state.nonActive
+			})
+		}
+		
+				if(e.target.id === "men"){
+					this.setState({
+						coeff: 2
+					})
+					
+				} else if (e.target.id === "women") {
+					this.setState({
+						coeff: 1
+					})
+					
+				} else if (e.target.id === "low"){
+					this.setState({
+						coeffAcrtive: 1
+					})
+					
+				} else if (e.target.id === "small"){
+					this.setState({
+						coeffAcrtive: 2
+					})
+					
+				} else if (e.target.id === "medium"){
+					this.setState({
+						coeffAcrtive: 3
+					})
+					
+				} else {
+					this.setState({
+						coeffAcrtive: 4
+					})
+				
+			   }
+		
+	 }
+	
+	}
+				
+	render(){
+	
+	const {height, weight, age, active, nonActive, coeff, heightBool, weightBool, ageBool, coeffAcrtive} = this.state;
+	
+	let result = '';
+	
+	if(height && weight && age != ""){
+	  result = height * weight * age * coeff * coeffAcrtive;
+	} else {
+		result = 0
+	}
+	
+	let women = "calculating__choose-item";
+	let men = "calculating__choose-item";
+	let low = "calculating__choose-item";
+	let small = "calculating__choose-item";
+	let medium = "calculating__choose-item";
+	let high = "calculating__choose-item";
+	
+	let heightClass = "calculating__choose-item",
+	    weightClass = "calculating__choose-item",
+	    ageClass = "calculating__choose-item";
+	
+	if(active){
+		women += " calculating__choose-item_active"
+	}
+	
+	if(nonActive){
+		men += " calculating__choose-item_active"
+	}
+	
+	if(this.state.coeffAcrtive === 1){
+		low += " calculating__choose-item_active"
+	}
+	
+	if(this.state.coeffAcrtive === 2){
+		small += " calculating__choose-item_active"
+	}
+	
+	if(this.state.coeffAcrtive === 3){
+		medium += " calculating__choose-item_active"
+	}
+	
+	if(this.state.coeffAcrtive === 4){
+		high += " calculating__choose-item_active"
+	}
+	
+	if(heightBool){
+		heightClass += " contur"
+	}
+	
+	if(weightBool){
+		weightClass += " contur"
+	}
+	
+	if(ageBool){
+		ageClass += " contur"
+	}
+
+	
+		return(
+		<div className="calculating">
+        <div className="container">
+            <h2 className="title">Рассчитаем вашу потребность в калориях?
+            </h2>
+            <div className="calculating__field">
+                <div className="calculating__subtitle">
+                    Ваш пол
+                </div>
+                <div className="calculating__choose" id="gender">
+                    <div id="women" name="women" onClick={this.onSetClass} className={women}>Женщина</div>
+                    <div id="men" name="men" onClick={this.onSetClass} className={men}>Мужчина</div>
+                </div>
+
+                <div className="calculating__subtitle">
+                    Ваша конституция
+                </div>
+                <div className="calculating__choose calculating__choose_medium">
+                    <input onChange={this.onSet} value={height} name="height"  type="number" id="height" placeholder="Введите рост" className={heightClass}/>
+                    <input onChange={this.onSet} value={weight} name="weight"  type="number" id="weight" placeholder="Введите вес"  className={weightClass}/>
+                    <input onChange={this.onSet} value={age} name="age"  type="number" id="age" placeholder="Введите возраст" className={ageClass}/>
+                </div>
+
+                <div className="calculating__subtitle">
+                    Выберите вашу физическая активность
+                </div>
+                <div className="calculating__choose calculating__choose_big">
+                    <div onClick={this.onSetClass} id="low" className={low}>Низкая активность </div>
+                    <div onClick={this.onSetClass} id="small"  className={small}>Невысокая активность</div>
+                    <div onClick={this.onSetClass} id="medium" className={medium}>Умеренная активность</div>
+                    <div onClick={this.onSetClass} id="high" className={high}>Высокая активность</div>
+                </div>
+
+                <div className="calculating__divider"></div>
+
+                <div className="calculating__total">
+                    <div className="calculating__subtitle">
+                        Ваша суточная норма калорий:
+                    </div>
+                    <div className="calculating__result">
+                        <span>{result}</span> ккал
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	)
+	}
+	
+}
+
+class Menu extends React.Component{
+	constructor(props){
+		super(props);
+	}
+render() {
+	const {dataMenu} = this.props;
+
+	
+	
+	const menu = dataMenu.map(item => {
+	
+		
+	
+		return(
+					<div key={item.id} className="menu__item">
+						<img src={item.src} alt={item.alt}/>
+						<h3 className="menu__item-subtitle">{item.menuTitle}”</h3>
+						<div className="menu__item-descr">{item.menuContent}</div>
+						<div className="menu__item-divider"></div>
+						<div className="menu__item-price">
+							<div className="menu__item-cost">{item.priceTitle}:</div>
+							<div className="menu__item-total"><span>{item.price}</span> {item.currency}</div>
+						</div>
+					</div>
+		)
+	})
+	
+
+		return(
+			<div className="menu">
+				<h2 className="title">Наше меню на день</h2>		
+				<div className="menu__field">
+					<div className="container">
+						{menu}
+					</div>
+				</div>
+			</div>
+	)
+}
+	
+}
+
+
+
+
+
+class Order extends React.Component {
+	constructor(props){
+		super(props);
+		
+		this.state = {
+			name: "",
+			phone: "",
+			data: 0,
+			color: "red"
+		}
+		this.onValueChangeOne = this.onValueChangeOne.bind(this);
+	}
+	
+	onValueChangeOne(e) {
+		this.setState({
+			[e.target.name]: e.target.value,
+		})
+			
+	}
+		
+	onSubmit(e){
+		e.preventDefault();
+		console.log(this.state);
+		const input = document.querySelectorAll('input');
+		for(let i = 0; i < input.length; i++){
+			input[i].value = '';
+		}
+		this.props.onOrderRestart();
+	}
+	
+	onMethod(arg){
+		console.log(arg);
+	}
+	
+		
+	render(){
+		const {name, phone} = this.state;
+		return(
+			<div className="order">
+			<div className="container">
+				<div className="title">Заказывай пробный день прямо сейчас!</div>
+				<form onSubmit={(e) => this.onSubmit(e)} action="#" className="order__form">
+					<input  required placeholder="Ваше имя" name="name" type="text" className="order__input"
+					onChange={this.onValueChangeOne}/>
+					<input  required placeholder="Ваш номер телефона" name="phone" type="phone" className="order__input"
+					onChange={this.onValueChangeOne}/>
+					<img src="right.svg" alt="right"/>
+					<button onClick={() => this.onMethod('Hello')} className="btn btn_dark btn_min">Перезвонить мне</button>
+				</form>
+				
+			</div>
+		</div>
+		);
+	}
+}
+
+class Promotion extends React.Component {
+	constructor(props){
+		super(props);
+		
+		this.state = {
+			days: 0,
+			hours: 0,
+			minutes: 0,
+			seconds: 0,
+			action: 'Осталось до конца акции:'
+		}
+		this.onSetTimer = this.onSetTimer.bind(this);
+		this.onSetTimer();
+	}
+	
+onSetTimer(){
+	
+	
+	const inTime = '2022-08-01 00:00',
+		  show = "block";
+	
+	const interval = setInterval(() => {
+			  let time = Date.parse(inTime) - Date.parse(new Date()), // промежуток в мс от сеогдня до inTime
+				  days = Math.floor(time/(1000 * 60 * 60 * 24)),
+				  hours = Math.floor((time/(1000 * 60 * 60)) % 24),
+				  minutes = Math.floor((time/(1000 * 60)) % 60),
+				  seconds = Math.floor((time/1000 % 60) % 60);
+				  
+				  if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0){
+					clearInterval(interval);
+						days = 0;
+						hours = 0;
+						minutes = 0;
+						seconds = 0;
+						
+						this.setState({
+							action: "Акция закончилась!"
+						})
+				  }
+				  
+				  if(days < 10){
+					days = "0" + days
+				  }
+				  if(hours < 10){
+					hours = "0" + hours
+				  }
+				  if(minutes < 10){
+					minutes = "0" + minutes
+				  }
+				  if(seconds < 10){
+					seconds = "0" + seconds
+				  }
+				  
+				  
+				  
+				  
+					this.setState(state => ({
+						days: days,
+						hours: hours,
+						minutes: minutes,
+						seconds: seconds
+					}))
+		  }, 1000)
+	
+	
+}
+
+render(){
+
+const{days, hours, minutes, seconds, action} = this.state;
+
+	return(
+			<div className="promotion">
+			<div className="bgc_y"></div>
+			<div className="container">
+				<div className="promotion__text">
+					<div className="title">Акция для новых клиентов!</div>
+					<div className="promotion__descr">
+						Мы ценим каждого клиента и предлагаем вам стать одним из них на очень выгодных условиях. 
+						Каждому, кто закажет доставку питание на неделю, будет предоставлена скидка в размере <span>20%!</span>
+						<br/><br/>
+						Акция закончится 20 июня в 00:00
+					</div>
+				</div>
+				<div className="promotion__timer">
+					<div className="title">{action}</div>
+					<div className="timer">
+						<div className="timer__block">
+							<span id="days">{days}</span>
+							дней
+						</div>
+						<div className="timer__block">
+							<span id="hours">{hours}</span>
+							часов
+						</div>
+						<div className="timer__block">
+							<span id="minutes">{minutes}</span>
+							минут
+						</div>
+						<div className="timer__block">
+							<span id="seconds">{seconds}</span>
+							секунд
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+	
+}
+
+const Footer = () => {
+	return(
+		<footer className="footer">
+        <div className="container">
+            <div className="social">
+                <div className="subtitle">Мы в социальных сетях:</div>
+                <a href="#" className="link">instagram</a>
+                <a href="#" className="link">facebook</a>
+            </div>
+            <div className="pepper">
+                <img src="veg.svg" alt="pepper"/>
+            </div>
+            <div className="call">
+                <div className="subtitle">Или позвоните нам</div>
+                <a href="#" className="link">+380678341034</a>
+                <a href="#" className="link">+380500941356</a>
+            </div>
+        </div>
+    </footer>
+	)
+}
+
+class Modal extends React.Component {
+	constructor(props){
+		super(props);
+		
+		this.state = {
+			name: '',
+			phone: ''
+		}
+		
+		this.onValueChange = this.onValueChange.bind(this);
+	}
+	
+onValueChange(e) {
+		this.setState({
+			[e.target.name]: e.target.value,
+		})
+			
+	}
+		
+	onSubmit(e){
+		e.preventDefault();
+		console.log(this.state)
+		const input = document.querySelectorAll('input');
+		for(let i = 0; i < input.length; i++){
+			input[i].value = '';
+		}		
+	}
+	
+	
+
+render(){
+const {display, onClose} = this.props;
+const {name, phone} = this.state;
+
+		return(
+				<div className="modal" style={{display: display}}>
+				
+				<div className="modal__dialog">
+					<div className="modal__content">
+						<form action="#"
+							  onSubmit={(e) => this.onSubmit(e)}>
+							<div onClick={onClose} data-close className="modal__close">&times;</div>
+							<div className="modal__title">Мы свяжемся с вами как можно быстрее!</div>
+							<input required placeholder="Ваше имя" name="name" type="text" className="modal__input"
+								   onChange={this.onValueChange}/>
+							<input required placeholder="Ваш номер телефона" name="phone" type="phone" className="modal__input"
+								   onChange={this.onValueChange}/>
+							<button className="btn btn_dark btn_min">Перезвонить мне</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			)
+}
+	
+
+}
+
+
+
+class App extends React.Component {
+	constructor(props){
+		super(props);
+		
+		this.classUser = {active: "tabheader__item tabheader__item_active", passive: "tabheader__item"}
+		
+		this.slider = [
+			{
+				src:"pepper.jpg",
+				alt: "pepper",
+				id: 1
+			},
+			{
+				src:"food-12.jpg",
+				alt: "food",
+				id: 2
+			},
+			{
+				src:"olive-oil.jpg",
+				alt: "oil",
+				id: 3
+			},
+			{
+				src:"paprika.jpg",
+				alt: "paprika",
+				id: 4
+			}
+		]
+		
+		this.state = {
+	
+		data: [
+	
+		{
+			src: "vegy.jpg",
+			
+			alt: "vegy",
+			
+			content: "Меню “Фитнес” - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Для людей, которые интересуются спортом; активных и здоровых. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!",
+			
+			id: 1
+		},
+		
+		{
+			src: "elite.jpg",
+			
+			alt: "elite",
+			
+			content: "Меню “Премиум” - мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!",
+			
+			id: 2
+		},
+		
+		{
+			src: "post.jpg",
+			
+			alt: "post",
+			
+			content: "Наше специальное “Постное меню” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения. Полная гармония с собой и природой в каждом элементе! Все будет Ом!",
+			
+			id: 3
+		},
+		
+		{
+			src: "vegy.jpg",
+			
+			alt: "vegy",
+			
+			content: "Меню “Сбалансированное” - это соответствие вашего рациона всем научным рекомендациям. Мы тщательно просчитываем вашу потребность в к/б/ж/у и создаем лучшие блюда для вас.",
+			
+			id: 4
+		}
+			
+	],
+	
+	dataItem: 
+	
+		{
+			fit: "Фитнес",
+			prem: "Премиум",
+			post: "Постное",
+			bal: "Сбалансированное"
+		},
+	
+	
+	label: 1,
+	
+	classUser: [
+		"tabheader__item tabheader__item_active",
+		"tabheader__item",
+		"tabheader__item",
+		"tabheader__item"
+		],
+	
+	dataImage: {
+			src: "vegy.jpg",
+			
+			alt: "vegy",
+			
+			content: "Меню “Фитнес” - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Для людей, которые интересуются спортом; активных и здоровых. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!",
+			
+			id: 1
+		},
+		
+	display: 'none',
+	
+	dataMenu: [
+				  {
+					src:"vegy.jpg",
+					
+					alt: "vegy", 
+					
+					menuTitle: 'Меню “Фитнес”',
+					
+					menuContent: 'Меню “Фитнес” - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+					
+					priceTitle: 'Цена:',
+					
+					price: '229', 
+					
+					currency: 'грн/день',
+					
+					id: 1
+				  },
+				  
+				  {
+				  
+					src:"elite.jpg",
+					
+					alt: "elite",
+					
+					menuTitle: 'Меню “Премиум”',
+					
+					menuContent: 'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+					
+					priceTitle: 'Цена:',
+					
+					price: '550', 
+					
+					currency: 'грн/день',
+					
+					id: 2
+				  },
+				  
+				  {
+				  
+					src:"post.jpg",
+					
+					alt: "post",
+					
+					menuTitle: 'Меню “Постное”',
+					
+					menuContent: 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+					
+					priceTitle: 'Цена:',
+					
+					price: '430', 
+					
+					currency: 'грн/день',
+					
+					id: 3
+				  }
+		     ],
+			 
+			 slides: {
+				src:"pepper.jpg",
+				alt: "pepper", 
+				id: 0
+			},
+			
+			restart: true
+	
+  }
+  
+  this.onLabel = this.onLabel.bind(this);
+  
+  this.onModal = this.onModal.bind(this);
+  
+  this.onClose = this.onClose.bind(this);
+  
+  this.onLiftingState = this.onLiftingState.bind(this);
+  
+  this.onOrderRestart = this.onOrderRestart.bind(this);
+}
+
+onLabel(e, arg){
+
+		const dataImage = this.state.data[arg]
+		
+		this.setState((state) => ({
+			dataImage: dataImage
+		}))
+		
+		const arrStart = this.state.classUser;
+		
+		let newArr = [];
+		
+		arrStart.map((item, i) => {
+		
+			if (i == arg){
+				item = "tabheader__item tabheader__item_active"
+				newArr[i] = item
+			} else {
+				item = "tabheader__item"
+				newArr[i] = item
+			}
+		})
+		
+		this.setState((state) => ({
+			classUser: newArr
+		}))
+	
+		
+}
+
+onModal(){
+	this.setState({
+		display: 'block'
+	})
+}
+
+onClose(){
+	this.setState({
+		display: 'none'
+	})
+}
+
+onLiftingState(arg){
+	this.setState({
+		slides: this.slider[arg - 1]
+	})	
+}
+
+onOrderRestart(){
+	this.setState({
+		restart: !this.state.restart
+	})
+}
+
+
+render(){
+
+	const {data, dataItem, classUser, dataImage, display, dataMenu, slides} = this.state;
+	
+	const numberSlides = this.slider.length;
+	
+	return(
+		<div className="app">
+			<Header onModal={this.onModal}/>
+			<SidePanel/>
+			<Preview onLabel={this.onLabel} 
+					 data={dataImage} 
+					 dataItem={dataItem} 
+					 classUser={classUser}/>
+			<Divider/>
+			<Offer onModal={this.onModal} numberSlides={numberSlides} slides={slides} onLiftingState={this.onLiftingState}/>
+			<Divider/>
+			<Calculating/>
+			<Divider/>
+			<Menu dataMenu={dataMenu}/>
+			<Order onOrderRestart={this.onOrderRestart}/>
+			<Divider/>
+			<Promotion/>
+			<Footer/>
+			<Modal display={display} onClose={this.onClose}/>	
+		</div>
+	)
+}
+	
+
+}
+
+
+
+ReactDOM.render(<App/>, document.getElementById("container")) 
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
